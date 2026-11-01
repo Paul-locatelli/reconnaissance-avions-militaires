@@ -44,6 +44,27 @@ Le dataset fourni doit se trouver dans `student-dataset 2/` (`images/` et `annot
 - **Vignettes carrées avec 10 % de marge par côté.** Le carré conserve les proportions
   au redimensionnement ; la même fonction (`src/crops.py`) servira à l'inférence.
 
+## Entraînement et évaluation
+
+```bash
+.venv/Scripts/python -m src.train_yolo --name yolo11s_20cls                  # baseline 20 classes
+.venv/Scripts/python -m src.evaluate_yolo --name yolo11s_20cls               # score sur le test
+.venv/Scripts/python -m src.train_yolo --name yolo11s_avion --single-cls     # détecteur 1 classe
+```
+
+Les poids sont écrits dans `runs/<nom>/weights/best.pt` (non versionnés), les scores de
+test dans `reports/<nom>_test.csv`.
+
+### Résultats sur le test (200 images, 1287 avions)
+
+| Modèle | mAP50 | mAP50-95 | Précision | Rappel |
+|---|---|---|---|---|
+| YOLO11s 20 classes (baseline) | 0,989 | 0,815 | 0,972 | 0,956 |
+
+Baseline : YOLO11s pré-entraîné COCO, 800 px, 100 époques (1 h sur RTX 4060 Laptop),
+meilleure époque 78. Principale erreur : 29 % des A5 prédits A13, presque tous dans une
+seule image (539, ombres très marquées), voir `reports/figures/yolo11s_20cls_erreur_image539.jpg`.
+
 ## Structure
 
 ```
@@ -55,5 +76,7 @@ src/
 ├── analyze_dataset.py
 ├── split_dataset.py
 ├── voc_to_yolo.py
-└── make_crops.py
+├── make_crops.py
+├── train_yolo.py       entraînement YOLO (20 classes ou 1 classe)
+└── evaluate_yolo.py    métriques par classe sur le test
 ```
