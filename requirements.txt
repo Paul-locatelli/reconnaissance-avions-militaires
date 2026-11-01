@@ -1,0 +1,13 @@
+# PyTorch : installer la version CUDA avec
+#   uv pip install -r requirements.txt --torch-backend=auto
+torch
+torchvision
+ultralytics
+timm
+opencv-python
+numpy
+pandas
+matplotlib
+scikit-learn
+tqdm
+pyyaml

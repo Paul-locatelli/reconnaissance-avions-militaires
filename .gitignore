@@ -1,0 +1,19 @@
+# Environnement
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Données brutes (trop lourdes pour Git, fournies par l'enseignant)
+student-dataset 2/
+.DS_Store
+
+# Données régénérables par les scripts (les splits, eux, sont versionnés)
+data/yolo/
+data/crops/
+
+# Entraînements et poids
+runs/
+*.pt
+*.pth
+*.onnx
