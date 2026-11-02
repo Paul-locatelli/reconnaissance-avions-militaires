@@ -16,26 +16,20 @@ import gradio as gr
 import numpy as np
 import pandas as pd
 
-from src.config import RAW_DIR, REPORTS_DIR, ROOT, SPLITS_DIR
+from src.compare_models import validation_thresholds
+from src.config import BASELINE_WEIGHTS, CLASSIFIER_WEIGHTS, DETECTOR_WEIGHTS, RAW_DIR, SPLITS_DIR
 from src.detection_metrics import CORRECT, FALSE_POSITIVE, WRONG_CLASS, compare_to_ground_truth
 from src.drawing import LEGEND, LEGEND_NO_TRUTH, draw_detections
 from src.images import read_image
-from src.pipeline import TwoStageRecognizer, YoloRecognizer
+from src.pipeline import BASELINE, TWO_STAGE, TwoStageRecognizer, YoloRecognizer
 from src.voc import load_annotations, read_split
 
-BASELINE, TWO_STAGE = "YOLO 20 classes", "Détecteur + classifieur"
 EXAMPLES = ["3607", "1749", "3821", "1680", "2477", "539"]  # images du test, jamais vues à l'entraînement
 COLUMNS = ["n°", "classe", "score", "verdict", "x1", "y1", "x2", "y2"]
 
 
 def count(n: int, singular: str, plural: str) -> str:
     return f"{n} {singular if n <= 1 else plural}"
-
-
-def default_thresholds() -> dict[str, float]:
-    """Seuils choisis sur la validation par compare_models (meilleur F1)."""
-    path = REPORTS_DIR / "comparaison_resume.csv"
-    return dict(pd.read_csv(path)[["approche", "seuil (val)"]].values) if path.exists() else {}
 
 
 def load_recognizers(args) -> dict:
@@ -103,7 +97,7 @@ class Demo:
 
 
 def build_app(demo: Demo) -> gr.Blocks:
-    thresholds = default_thresholds()
+    thresholds = validation_thresholds()
     approaches = list(demo.recognizers)
     examples = [[str(RAW_DIR / "images" / f"{i}.jpg")] for i in EXAMPLES if (RAW_DIR / "images" / f"{i}.jpg").exists()]
 
@@ -140,9 +134,9 @@ def build_app(demo: Demo) -> gr.Blocks:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--baseline", default=str(ROOT / "runs/yolo11s_20cls/weights/best.pt"))
-    parser.add_argument("--detector", default=str(ROOT / "runs/yolo11s_avion/weights/best.pt"))
-    parser.add_argument("--classifier", default=str(ROOT / "runs/cls_resnet50/best.pt"))
+    parser.add_argument("--baseline", default=str(BASELINE_WEIGHTS))
+    parser.add_argument("--detector", default=str(DETECTOR_WEIGHTS))
+    parser.add_argument("--classifier", default=str(CLASSIFIER_WEIGHTS))
     parser.add_argument("--host", default="127.0.0.1", help="0.0.0.0 pour un accès depuis un autre poste ou Docker")
     parser.add_argument("--port", type=int, default=7860)
     args = parser.parse_args()

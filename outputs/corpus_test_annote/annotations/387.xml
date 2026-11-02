@@ -1,0 +1,37 @@
+<annotation>
+	<folder>Unknown</folder>
+	<filename>387.jpg</filename>
+	<path>Unknown</path>
+	<size>
+		<width>745</width>
+		<height>694</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>A5</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7639</score>
+		<bndbox>
+			<xmin>244</xmin>
+			<ymin>204</ymin>
+			<xmax>321</xmax>
+			<ymax>269</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A5</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7189</score>
+		<bndbox>
+			<xmin>286</xmin>
+			<ymin>296</ymin>
+			<xmax>361</xmax>
+			<ymax>360</ymax>
+		</bndbox>
+	</object>
+</annotation>

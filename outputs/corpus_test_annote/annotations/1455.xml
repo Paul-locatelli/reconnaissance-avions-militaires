@@ -1,0 +1,37 @@
+<annotation>
+	<folder>Unknown</folder>
+	<filename>1455.jpg</filename>
+	<path>Unknown</path>
+	<size>
+		<width>800</width>
+		<height>800</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>A5</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7872</score>
+		<bndbox>
+			<xmin>380</xmin>
+			<ymin>156</ymin>
+			<xmax>465</xmax>
+			<ymax>275</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A5</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7732</score>
+		<bndbox>
+			<xmin>409</xmin>
+			<ymin>527</ymin>
+			<xmax>494</xmax>
+			<ymax>640</ymax>
+		</bndbox>
+	</object>
+</annotation>

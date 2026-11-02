@@ -1,0 +1,37 @@
+<annotation>
+	<folder>Unknown</folder>
+	<filename>389.jpg</filename>
+	<path>Unknown</path>
+	<size>
+		<width>839</width>
+		<height>801</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>A5</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7042</score>
+		<bndbox>
+			<xmin>304</xmin>
+			<ymin>410</ymin>
+			<xmax>404</xmax>
+			<ymax>539</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A5</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.6876</score>
+		<bndbox>
+			<xmin>451</xmin>
+			<ymin>330</ymin>
+			<xmax>553</xmax>
+			<ymax>460</ymax>
+		</bndbox>
+	</object>
+</annotation>

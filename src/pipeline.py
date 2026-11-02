@@ -15,6 +15,8 @@ from src.classifier import classify_crops, load_classifier
 from src.config import CLASSES
 from src.crops import square_crop
 
+BASELINE, TWO_STAGE = "YOLO 20 classes", "Détecteur + classifieur"   # noms dans les rapports et l'interface
+
 
 @dataclass
 class Detection:

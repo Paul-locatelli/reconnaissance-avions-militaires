@@ -18,3 +18,5 @@ runs/
 *.pth
 *.onnx
 .claude/
+outputs/*/images/
+outputs/*.zip

@@ -1,0 +1,37 @@
+<annotation>
+	<folder>Unknown</folder>
+	<filename>3347.jpg</filename>
+	<path>Unknown</path>
+	<size>
+		<width>800</width>
+		<height>800</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>A19</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7801</score>
+		<bndbox>
+			<xmin>380</xmin>
+			<ymin>162</ymin>
+			<xmax>495</xmax>
+			<ymax>313</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A19</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7299</score>
+		<bndbox>
+			<xmin>243</xmin>
+			<ymin>158</ymin>
+			<xmax>355</xmax>
+			<ymax>312</ymax>
+		</bndbox>
+	</object>
+</annotation>

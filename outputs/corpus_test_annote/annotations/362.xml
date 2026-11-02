@@ -1,0 +1,24 @@
+<annotation>
+	<folder>Unknown</folder>
+	<filename>362.jpg</filename>
+	<path>Unknown</path>
+	<size>
+		<width>800</width>
+		<height>800</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>A5</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7130</score>
+		<bndbox>
+			<xmin>303</xmin>
+			<ymin>519</ymin>
+			<xmax>404</xmax>
+			<ymax>592</ymax>
+		</bndbox>
+	</object>
+</annotation>

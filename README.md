@@ -119,6 +119,25 @@ Les modèles sont chargés une fois au démarrage, avec un premier passage à vi
 première analyse de la démo soit rapide. Options `--host 0.0.0.0` (accès depuis un autre poste)
 et `--baseline / --detector / --classifier` (autres poids).
 
+## Corpus de test annoté
+
+```bash
+.venv/Scripts/python -m src.annotate_corpus --images <dossier du corpus de test> --zip
+.venv/Scripts/python -m src.annotate_corpus          # sans --images : les 200 images de notre split de test
+```
+
+Le modèle retenu (détecteur + classifieur, seuil de validation 0,60) annote chaque image :
+
+- `outputs/corpus_test_annote/annotations/*.xml` : Pascal VOC, même format que les annotations
+  fournies, avec en plus une balise `<score>` (confiance du modèle) par avion ;
+- `outputs/corpus_test_annote/images/*.jpg` : images avec les boîtes et les classes dessinées ;
+- `outputs/corpus_test_annote/detections.csv` : toutes les détections dans un seul tableau ;
+- `outputs/corpus_test_annote.zip` (option `--zip`) : l'ensemble, à partager.
+
+Contrôle : relus comme des annotations et comparés à la vérité terrain, les XML de notre split de
+test redonnent exactement les scores de la comparaison (précision 0,984, rappel 0,944, F1 0,964).
+Les XML et le CSV de ce split sont versionnés ; les images et le zip, trop lourds, ne le sont pas.
+
 ## Structure
 
 ```
@@ -140,5 +159,6 @@ src/
 ├── detection_metrics.py  AP, mAP, précision, rappel, F1 codés à la main (style COCO)
 ├── compare_models.py   comparaison des deux approches sur le test
 ├── drawing.py          dessin des boîtes et des verdicts
-└── app.py              interface de démonstration (Gradio)
+├── app.py              interface de démonstration (Gradio)
+└── annotate_corpus.py  annotation d'un corpus d'images (XML Pascal VOC + images annotées)
 ```

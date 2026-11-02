@@ -15,8 +15,17 @@ import pandas as pd
 from src.config import CLASSES, REPORTS_DIR, ROOT, SPLITS_DIR
 from src.detection_metrics import best_conf_threshold, evaluate
 from src.images import read_image
-from src.pipeline import TwoStageRecognizer, YoloRecognizer
+from src.pipeline import BASELINE, TWO_STAGE, TwoStageRecognizer, YoloRecognizer
 from src.voc import load_annotations, read_split
+
+SUMMARY_PATH = REPORTS_DIR / "comparaison_resume.csv"
+
+
+def validation_thresholds() -> dict[str, float]:
+    """Seuil retenu pour chaque approche (meilleur F1 de validation), lu dans le résumé de la comparaison."""
+    if not SUMMARY_PATH.exists():
+        return {}
+    return {a: float(t) for a, t in pd.read_csv(SUMMARY_PATH)[["approche", "seuil (val)"]].values}
 
 
 def predict_split(recognizer, annotations: dict) -> tuple[dict, float]:
@@ -36,11 +45,10 @@ def main() -> None:
     args = parser.parse_args()
 
     runs = ROOT / "runs"
-    recognizers = {"YOLO 20 classes": YoloRecognizer(runs / args.baseline / "weights" / "best.pt",
-                                                     conf=0.01, device=args.device)}
+    recognizers = {BASELINE: YoloRecognizer(runs / args.baseline / "weights" / "best.pt", conf=0.01, device=args.device)}
     detector, classifier = runs / args.detector / "weights" / "best.pt", runs / args.classifier / "best.pt"
     if detector.exists() and classifier.exists():
-        recognizers["Détecteur + classifieur"] = TwoStageRecognizer(detector, classifier, conf=0.01, device=args.device)
+        recognizers[TWO_STAGE] = TwoStageRecognizer(detector, classifier, conf=0.01, device=args.device)
     else:
         print(f"Pipeline 2 étapes ignoré : {detector if not detector.exists() else classifier} introuvable")
 
@@ -67,7 +75,7 @@ def main() -> None:
         print(all_results.pivot(index="classe", columns="approche", values=metric)
               .reindex(CLASSES + ["global"]).round(3).to_string())
     summary = pd.DataFrame(summary)
-    summary.to_csv(REPORTS_DIR / "comparaison_resume.csv", index=False, float_format="%.4f")
+    summary.to_csv(SUMMARY_PATH, index=False, float_format="%.4f")
     print("\nRésumé (test)")
     print(summary.round(3).to_string(index=False))
 

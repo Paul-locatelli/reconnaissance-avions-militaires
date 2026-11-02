@@ -1,0 +1,37 @@
+<annotation>
+	<folder>Unknown</folder>
+	<filename>58.jpg</filename>
+	<path>Unknown</path>
+	<size>
+		<width>935</width>
+		<height>950</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>A10</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.8015</score>
+		<bndbox>
+			<xmin>465</xmin>
+			<ymin>10</ymin>
+			<xmax>669</xmax>
+			<ymax>179</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A10</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7954</score>
+		<bndbox>
+			<xmin>275</xmin>
+			<ymin>775</ymin>
+			<xmax>467</xmax>
+			<ymax>939</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,24 @@
+<annotation>
+	<folder>Unknown</folder>
+	<filename>2697.jpg</filename>
+	<path>Unknown</path>
+	<size>
+		<width>800</width>
+		<height>800</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>A20</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7742</score>
+		<bndbox>
+			<xmin>600</xmin>
+			<ymin>451</ymin>
+			<xmax>705</xmax>
+			<ymax>503</ymax>
+		</bndbox>
+	</object>
+</annotation>
