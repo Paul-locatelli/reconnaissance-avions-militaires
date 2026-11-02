@@ -46,24 +46,62 @@ Le dataset fourni doit se trouver dans `student-dataset 2/` (`images/` et `annot
 
 ## Entraînement et évaluation
 
+Deux approches sont comparées :
+
+1. **YOLO 20 classes** (baseline) : un seul modèle localise et reconnaît le type d'avion.
+2. **Détecteur + classifieur** : un YOLO 1 classe trouve les avions, puis un CNN (ResNet50)
+   reconnaît le type sur chaque vignette. Score final = confiance de détection × probabilité de la classe.
+
 ```bash
 .venv/Scripts/python -m src.train_yolo --name yolo11s_20cls                  # baseline 20 classes
-.venv/Scripts/python -m src.evaluate_yolo --name yolo11s_20cls               # score sur le test
+.venv/Scripts/python -m src.evaluate_yolo --name yolo11s_20cls               # score Ultralytics sur le test
 .venv/Scripts/python -m src.train_yolo --name yolo11s_avion --single-cls     # détecteur 1 classe
+.venv/Scripts/python -m src.evaluate_yolo --name yolo11s_avion --single-cls
+.venv/Scripts/python -m src.train_classifier --name resnet50                 # classifieur de vignettes
+.venv/Scripts/python -m src.compare_models                                   # comparaison des 2 approches
 ```
 
-Les poids sont écrits dans `runs/<nom>/weights/best.pt` (non versionnés), les scores de
-test dans `reports/<nom>_test.csv`.
+Après un plantage, `python -m src.train_yolo --name <nom> --resume` reprend depuis le dernier
+checkpoint, et `python -m src.train_classifier --name <nom> --eval-only` refait seulement le test.
+
+Les poids sont écrits dans `runs/` (non versionné), les scores dans `reports/`.
 
 ### Résultats sur le test (200 images, 1287 avions)
 
-| Modèle | mAP50 | mAP50-95 | Précision | Rappel |
-|---|---|---|---|---|
-| YOLO11s 20 classes (baseline) | 0,989 | 0,815 | 0,972 | 0,956 |
+Comparaison avec le même code de métriques (`src/detection_metrics.py`, style COCO) ; le seuil
+de confiance est choisi sur la validation (meilleur F1), puis appliqué au test.
 
-Baseline : YOLO11s pré-entraîné COCO, 800 px, 100 époques (1 h sur RTX 4060 Laptop),
-meilleure époque 78. Principale erreur : 29 % des A5 prédits A13, presque tous dans une
-seule image (539, ombres très marquées), voir `reports/figures/yolo11s_20cls_erreur_image539.jpg`.
+| Approche | mAP50 | mAP50-95 | Précision | Rappel | F1 | Temps / image |
+|---|---|---|---|---|---|---|
+| YOLO 20 classes | 0,967 | 0,793 | 0,971 | 0,950 | 0,960 | 41 ms |
+| Détecteur + classifieur | 0,969 | 0,793 | 0,984 | 0,944 | 0,964 | 78 ms |
+
+- **Égalité globale** : l'écart (F1 0,964 contre 0,960) est trop faible pour départager les
+  approches sur 200 images. Le pipeline est plus précis mais rate un peu plus d'avions, et il
+  est deux fois plus lent (GPU RTX 4060 Laptop).
+- **Forces complémentaires** : le pipeline corrige les classes difficiles de la baseline
+  (F1 A5 0,87 contre 0,79 ; A11 0,88 contre 0,81 ; A14 0,97 contre 0,91 ; A15 0,96 contre 0,89),
+  mais fait moins bien sur A1 (0,88 contre 0,94), A12 (0,93 contre 0,99) et A20 (0,96 contre 0,98).
+  Détail par classe : `reports/comparaison_test.csv`.
+- **Les erreurs du pipeline viennent de la classification** : seul, le détecteur 1 classe trouve
+  99,5 % des avions (précision 0,993, AP50 0,994, AP50-95 0,810, `reports/yolo11s_avion_test.csv`).
+  Sur les vignettes du test, le classifieur atteint 97,8 % d'exactitude (F1 macro 0,977) ; ses
+  confusions principales sont A1 ↔ A19 et A11 → A14 (`reports/figures/cls_resnet50_confusion_matrix.png`).
+
+Entraînements :
+
+- **YOLO11s 20 classes** : pré-entraîné COCO, 800 px, 100 époques (1 h), meilleure époque 78.
+  Principale erreur : 29 % des A5 prédits A13, presque tous dans une seule image (539, ombres
+  très marquées), voir `reports/figures/yolo11s_20cls_erreur_image539.jpg`.
+- **YOLO11s 1 classe** : mêmes réglages avec `single_cls`, 100 époques, meilleure époque 100.
+- **ResNet50** : pré-entraîné ImageNet, vignettes 224 px, perte pondérée par classe, arrêt
+  anticipé à l'époque 24, meilleure époque 16 (F1 macro de validation 0,955).
+
+Ultralytics annonce un mAP50 plus élevé pour la baseline (0,989 contre 0,967 ici), pour deux raisons :
+son évaluation garde plusieurs classes candidates par boîte, ce qui gonfle le mAP d'un modèle
+multi-classes, et son AP interpole la courbe précision/rappel au lieu de la lire en marches comme COCO.
+Sur le détecteur 1 classe, où la première raison ne joue pas, les deux calculs ne diffèrent que de
+0,009 en AP50 et de 0,006 en AP50-95.
 
 ## Structure
 
@@ -73,10 +111,16 @@ src/
 ├── voc.py              lecture des annotations Pascal VOC
 ├── images.py           lecture/écriture d'images
 ├── crops.py            découpe d'une vignette autour d'une boîte
+├── plotting.py         style commun des figures
 ├── analyze_dataset.py
 ├── split_dataset.py
 ├── voc_to_yolo.py
 ├── make_crops.py
 ├── train_yolo.py       entraînement YOLO (20 classes ou 1 classe)
-└── evaluate_yolo.py    métriques par classe sur le test
+├── evaluate_yolo.py    métriques Ultralytics par classe sur le test
+├── classifier.py       CNN de vignettes : modèle, transformations, chargement
+├── train_classifier.py entraînement et test du classifieur
+├── pipeline.py         les deux approches derrière la même interface predict(image)
+├── detection_metrics.py  AP, mAP, précision, rappel, F1 codés à la main (style COCO)
+└── compare_models.py   comparaison des deux approches sur le test
 ```

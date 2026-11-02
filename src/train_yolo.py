@@ -10,6 +10,7 @@ extraire des formes génériques, il n'a plus qu'à s'adapter aux avions vus du 
 Usage :
   python -m src.train_yolo --name yolo11s_20cls
   python -m src.train_yolo --name yolo11s_avion --single-cls
+  python -m src.train_yolo --name yolo11s_avion --resume     (reprise après un plantage)
 Sorties : runs/<name>/ (poids weights/best.pt, courbes, matrice de confusion)
 """
 import argparse
@@ -28,7 +29,13 @@ def main() -> None:
     parser.add_argument("--imgsz", type=int, default=800)
     parser.add_argument("--batch", type=int, default=16)
     parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument("--resume", action="store_true", help="reprendre runs/<name> depuis weights/last.pt après un arrêt")
     args = parser.parse_args()
+
+    if args.resume:
+        # Réglages, optimiseur et époque courante sont relus dans le checkpoint : les autres options sont ignorées
+        YOLO(ROOT / "runs" / args.name / "weights" / "last.pt").train(resume=True)
+        return
 
     model = YOLO(args.model)
     model.train(

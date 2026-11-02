@@ -8,34 +8,14 @@ import statistics as st
 from collections import Counter
 
 import cv2
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import pandas as pd
 from PIL import Image
 
 from src.config import CLASSES, FIGURES_DIR, REPORTS_DIR, SEED
 from src.crops import square_crop
 from src.images import read_image
+from src.plotting import BLUE, BLUE_BGR, INK_2, SURFACE, plt, setup_style
 from src.voc import Annotation, load_annotations
-
-# Palette de référence (mode clair) : une seule teinte, les graphes n'ont qu'une série
-BLUE = "#2a78d6"
-BLUE_BGR = (214, 120, 42)
-INK, INK_2, MUTED = "#0b0b0b", "#52514e", "#898781"
-GRID, AXIS, SURFACE = "#e1e0d9", "#c3c2b7", "#fcfcfb"
-
-
-def setup_style() -> None:
-    plt.rcParams.update({
-        "figure.facecolor": SURFACE, "axes.facecolor": SURFACE, "savefig.facecolor": SURFACE,
-        "axes.edgecolor": AXIS, "axes.labelcolor": INK_2, "xtick.color": MUTED, "ytick.color": MUTED,
-        "axes.titlecolor": INK, "axes.titlesize": 12, "axes.titleweight": "bold", "axes.titlelocation": "left",
-        "axes.spines.top": False, "axes.spines.right": False,
-        "axes.grid": True, "grid.color": GRID, "grid.linewidth": 0.6, "axes.axisbelow": True,
-        "font.family": "sans-serif", "font.sans-serif": ["Segoe UI", "DejaVu Sans"], "font.size": 10,
-    })
 
 
 def check_consistency(annotations: dict[str, Annotation]) -> list[str]:
