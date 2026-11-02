@@ -20,3 +20,4 @@ runs/
 .claude/
 outputs/*/images/
 outputs/*.zip
+/poids_modeles.zip

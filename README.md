@@ -3,6 +3,11 @@
 Projet du module « Introduction à l'IA » (IPSA Toulouse) : localiser les avions dans
 une image satellite et déterminer leur modèle (20 classes, A1 à A20).
 
+- Dépôt : https://github.com/Paul-locatelli/reconnaissance-avions-militaires
+- Corpus de test annoté par le modèle : [corpus_test_annote.zip](https://github.com/Paul-locatelli/reconnaissance-avions-militaires/releases/download/v1.0/corpus_test_annote.zip)
+- Poids des modèles entraînés : [poids_modeles.zip](https://github.com/Paul-locatelli/reconnaissance-avions-militaires/releases/download/v1.0/poids_modeles.zip)
+  (release [v1.0](https://github.com/Paul-locatelli/reconnaissance-avions-militaires/releases/tag/v1.0))
+
 ## Installation
 
 Python 3.12 et [uv](https://docs.astral.sh/uv/) :
@@ -15,6 +20,14 @@ uv pip install --python .venv/Scripts/python.exe -r requirements.txt --torch-bac
 `--torch-backend=auto` installe la version de PyTorch adaptée au GPU NVIDIA de la machine.
 `requirements-lock.txt` fige les versions exactes testées (PyTorch 2.14 + CUDA 13.0, Ultralytics 8.4).
 Le dataset fourni doit se trouver dans `student-dataset 2/` (`images/` et `annotations/`).
+
+Pour utiliser les modèles sans les réentraîner, télécharger
+[poids_modeles.zip](https://github.com/Paul-locatelli/reconnaissance-avions-militaires/releases/download/v1.0/poids_modeles.zip)
+à la racine du projet, puis l'extraire (il recrée `runs/<modèle>/.../best.pt`) :
+
+```bash
+.venv/Scripts/python -m zipfile -e poids_modeles.zip .
+```
 
 ## Préparation des données
 
@@ -71,7 +84,7 @@ Deux approches sont comparées :
 Après un plantage, `python -m src.train_yolo --name <nom> --resume` reprend depuis le dernier
 checkpoint, et `python -m src.train_classifier --name <nom> --eval-only` refait seulement le test.
 
-Les poids sont écrits dans `runs/` (non versionné), les scores dans `reports/`.
+Les poids sont écrits dans `runs/` (non versionné, publié dans la release v1.0), les scores dans `reports/`.
 
 ### Résultats sur le test (200 images, 1287 avions)
 
@@ -151,7 +164,9 @@ Le modèle retenu (détecteur + ConvNeXt-Tiny + TTA, seuil de validation 0,45) a
   fournies, avec en plus une balise `<score>` (confiance du modèle) par avion ;
 - `outputs/corpus_test_annote/images/*.jpg` : images avec les boîtes et les classes dessinées ;
 - `outputs/corpus_test_annote/detections.csv` : toutes les détections dans un seul tableau ;
-- `outputs/corpus_test_annote.zip` (option `--zip`) : l'ensemble, à partager.
+- `outputs/corpus_test_annote.zip` (option `--zip`) : l'ensemble, à partager
+  ([téléchargement](https://github.com/Paul-locatelli/reconnaissance-avions-militaires/releases/download/v1.0/corpus_test_annote.zip)
+  pour notre split de test).
 
 Contrôle : relus comme des annotations et comparés à la vérité terrain, les XML de notre split de
 test redonnent exactement les scores de la comparaison (précision 0,976, rappel 0,973, F1 0,974).
@@ -161,7 +176,7 @@ Les XML et le CSV de ce split sont versionnés ; les images et le zip, trop lour
 
 L'image contient le code et les poids des 3 modèles, et fait l'inférence sur CPU : elle tourne
 sur n'importe quelle machine, sans GPU. Les poids doivent être présents dans `runs/` avant la
-construction (ils ne sont pas versionnés).
+construction (ils ne sont pas versionnés : les extraire de `poids_modeles.zip`, voir Installation).
 
 ```bash
 docker build -t avions-militaires .
