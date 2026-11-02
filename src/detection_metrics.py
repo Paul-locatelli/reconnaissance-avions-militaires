@@ -90,6 +90,31 @@ def evaluate(predictions: dict, annotations: dict, classes: list[str], conf_thre
     return results
 
 
+CORRECT, WRONG_CLASS, FALSE_POSITIVE = "correct", "mauvaise classe", "fausse détection"
+
+
+def compare_to_ground_truth(detections: list, boxes: list, iou_thr: float = 0.5) -> tuple[list, list]:
+    """Pour expliquer les erreurs d'une image : appariement par IoU sans regarder la classe.
+
+    Renvoie (verdict, vraie classe) pour chaque détection, dans l'ordre reçu, et les vraies
+    boîtes qu'aucune détection ne recouvre (avions manqués).
+    """
+    gt = np.array([b.as_xyxy() for b in boxes], float).reshape(-1, 4)
+    taken = np.zeros(len(gt), bool)
+    results = [(FALSE_POSITIVE, None)] * len(detections)
+    for k in sorted(range(len(detections)), key=lambda k: -detections[k].score):
+        if len(gt) == 0:
+            break
+        ious = box_iou(np.array([detections[k].as_xyxy()], float), gt)[0]
+        ious[taken] = -1
+        best = int(ious.argmax())
+        if ious[best] >= iou_thr:
+            taken[best] = True
+            truth = boxes[best].name
+            results[k] = (CORRECT if truth == detections[k].classe else WRONG_CLASS, truth)
+    return results, [b for b, t in zip(boxes, taken) if not t]
+
+
 def best_conf_threshold(predictions: dict, annotations: dict, classes: list[str]) -> float:
     """Seuil de confiance qui maximise le F1 global : à choisir sur la VALIDATION, puis appliquer au test."""
     candidates = np.round(np.arange(0.05, 0.96, 0.05), 2)

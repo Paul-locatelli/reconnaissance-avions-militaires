@@ -103,6 +103,22 @@ multi-classes, et son AP interpole la courbe précision/rappel au lieu de la lir
 Sur le détecteur 1 classe, où la première raison ne joue pas, les deux calculs ne diffèrent que de
 0,009 en AP50 et de 0,006 en AP50-95.
 
+## Interface de démonstration
+
+```bash
+.venv/Scripts/python -m src.app        # puis ouvrir http://127.0.0.1:7860
+```
+
+- Déposer une image satellite, ou choisir un des 6 exemples (images du test, jamais vues à l'entraînement).
+- Choisir l'approche ; le seuil de confiance prend la valeur choisie sur la validation, et reste réglable.
+- Si l'image vient du dataset, chaque prédiction est comparée à la vérité terrain : vert = correct,
+  orange = mauvaise classe, rouge = fausse détection, pointillés rouges = avion manqué.
+- Le tableau liste chaque détection (classe, score, verdict, coordonnées de la boîte).
+
+Les modèles sont chargés une fois au démarrage, avec un premier passage à vide pour que la
+première analyse de la démo soit rapide. Options `--host 0.0.0.0` (accès depuis un autre poste)
+et `--baseline / --detector / --classifier` (autres poids).
+
 ## Structure
 
 ```
@@ -122,5 +138,7 @@ src/
 ├── train_classifier.py entraînement et test du classifieur
 ├── pipeline.py         les deux approches derrière la même interface predict(image)
 ├── detection_metrics.py  AP, mAP, précision, rappel, F1 codés à la main (style COCO)
-└── compare_models.py   comparaison des deux approches sur le test
+├── compare_models.py   comparaison des deux approches sur le test
+├── drawing.py          dessin des boîtes et des verdicts
+└── app.py              interface de démonstration (Gradio)
 ```
