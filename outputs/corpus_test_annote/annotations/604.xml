@@ -13,20 +13,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8639</score>
-		<bndbox>
-			<xmin>311</xmin>
-			<ymin>199</ymin>
-			<xmax>377</xmax>
-			<ymax>262</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A18</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8629</score>
+		<score>0.8625</score>
 		<bndbox>
 			<xmin>365</xmin>
 			<ymin>259</ymin>
@@ -39,33 +26,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8606</score>
-		<bndbox>
-			<xmin>240</xmin>
-			<ymin>378</ymin>
-			<xmax>308</xmax>
-			<ymax>444</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A18</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8494</score>
-		<bndbox>
-			<xmin>178</xmin>
-			<ymin>318</ymin>
-			<xmax>246</xmax>
-			<ymax>382</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A18</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8426</score>
+		<score>0.8554</score>
 		<bndbox>
 			<xmin>497</xmin>
 			<ymin>142</ymin>
@@ -78,7 +39,46 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8221</score>
+		<score>0.8537</score>
+		<bndbox>
+			<xmin>311</xmin>
+			<ymin>199</ymin>
+			<xmax>377</xmax>
+			<ymax>262</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A18</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.8531</score>
+		<bndbox>
+			<xmin>240</xmin>
+			<ymin>378</ymin>
+			<xmax>308</xmax>
+			<ymax>444</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A18</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.8499</score>
+		<bndbox>
+			<xmin>178</xmin>
+			<ymin>318</ymin>
+			<xmax>246</xmax>
+			<ymax>382</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A18</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.8454</score>
 		<bndbox>
 			<xmin>437</xmin>
 			<ymin>85</ymin>

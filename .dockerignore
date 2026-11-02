@@ -7,5 +7,5 @@
 !requirements-lock.txt
 !runs/yolo11s_20cls/weights/best.pt
 !runs/yolo11s_avion/weights/best.pt
-!runs/cls_resnet50/best.pt
+!runs/cls_convnext_tiny/best.pt
 **/__pycache__

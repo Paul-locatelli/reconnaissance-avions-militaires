@@ -13,20 +13,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8141</score>
-		<bndbox>
-			<xmin>457</xmin>
-			<ymin>89</ymin>
-			<xmax>589</xmax>
-			<ymax>233</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A8</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8107</score>
+		<score>0.7504</score>
 		<bndbox>
 			<xmin>356</xmin>
 			<ymin>242</ymin>
@@ -39,7 +26,20 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7994</score>
+		<score>0.7469</score>
+		<bndbox>
+			<xmin>457</xmin>
+			<ymin>89</ymin>
+			<xmax>589</xmax>
+			<ymax>233</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A8</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.6678</score>
 		<bndbox>
 			<xmin>173</xmin>
 			<ymin>618</ymin>

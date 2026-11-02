@@ -49,16 +49,23 @@ Le dataset fourni doit se trouver dans `student-dataset 2/` (`images/` et `annot
 Deux approches sont comparées :
 
 1. **YOLO 20 classes** (baseline) : un seul modèle localise et reconnaît le type d'avion.
-2. **Détecteur + classifieur** : un YOLO 1 classe trouve les avions, puis un CNN (ResNet50)
-   reconnaît le type sur chaque vignette. Score final = confiance de détection × probabilité de la classe.
+2. **Détecteur + classifieur** : un YOLO 1 classe trouve les avions, puis un CNN reconnaît le
+   type sur chaque vignette. Score final = confiance de détection × probabilité de la classe.
+   Deux classifieurs ont été essayés (ResNet50, ConvNeXt-Tiny), chacun sans et avec TTA
+   (*test-time augmentation* : probabilités moyennées sur les 8 orientations de la vignette,
+   4 rotations d'un quart de tour avec et sans symétrie ; vu de dessus, un avion tourné reste
+   le même avion).
+
+**Modèle retenu : détecteur + ConvNeXt-Tiny + TTA**, la configuration au meilleur F1 de validation.
 
 ```bash
 .venv/Scripts/python -m src.train_yolo --name yolo11s_20cls                  # baseline 20 classes
 .venv/Scripts/python -m src.evaluate_yolo --name yolo11s_20cls               # score Ultralytics sur le test
 .venv/Scripts/python -m src.train_yolo --name yolo11s_avion --single-cls     # détecteur 1 classe
 .venv/Scripts/python -m src.evaluate_yolo --name yolo11s_avion --single-cls
-.venv/Scripts/python -m src.train_classifier --name resnet50                 # classifieur de vignettes
-.venv/Scripts/python -m src.compare_models                                   # comparaison des 2 approches
+.venv/Scripts/python -m src.train_classifier --name resnet50                 # classifieurs de vignettes
+.venv/Scripts/python -m src.train_classifier --name convnext_tiny --model convnext_tiny
+.venv/Scripts/python -m src.compare_models                                   # comparaison des configurations
 ```
 
 Après un plantage, `python -m src.train_yolo --name <nom> --resume` reprend depuis le dernier
@@ -68,25 +75,35 @@ Les poids sont écrits dans `runs/` (non versionné), les scores dans `reports/`
 
 ### Résultats sur le test (200 images, 1287 avions)
 
-Comparaison avec le même code de métriques (`src/detection_metrics.py`, style COCO) ; le seuil
-de confiance est choisi sur la validation (meilleur F1), puis appliqué au test.
+Comparaison avec le même code de métriques (`src/detection_metrics.py`, style COCO). Pour chaque
+configuration, le seuil de confiance est choisi sur la validation (meilleur F1), puis appliqué au
+test. La configuration retenue est celle au meilleur F1 de **validation** : le test ne sert pas à choisir.
 
-| Approche | mAP50 | mAP50-95 | Précision | Rappel | F1 | Temps / image |
-|---|---|---|---|---|---|---|
-| YOLO 20 classes | 0,967 | 0,793 | 0,971 | 0,950 | 0,960 | 41 ms |
-| Détecteur + classifieur | 0,969 | 0,793 | 0,984 | 0,944 | 0,964 | 78 ms |
+| Configuration | F1 val | mAP50 | mAP50-95 | Précision | Rappel | F1 | Temps / image |
+|---|---|---|---|---|---|---|---|
+| YOLO 20 classes | 0,950 | 0,967 | 0,793 | 0,971 | 0,950 | 0,960 | 46 ms |
+| Détecteur + ResNet50 | 0,952 | 0,969 | 0,793 | 0,984 | 0,944 | 0,964 | 79 ms |
+| Détecteur + ResNet50 + TTA | 0,958 | 0,975 | 0,801 | 0,985 | 0,970 | 0,978 | 199 ms |
+| Détecteur + ConvNeXt-Tiny | 0,970 | 0,967 | 0,794 | 0,976 | 0,968 | 0,972 | 86 ms |
+| **Détecteur + ConvNeXt-Tiny + TTA** | **0,973** | 0,976 | 0,802 | 0,976 | 0,973 | 0,974 | 217 ms |
 
-- **Égalité globale** : l'écart (F1 0,964 contre 0,960) est trop faible pour départager les
-  approches sur 200 images. Le pipeline est plus précis mais rate un peu plus d'avions, et il
-  est deux fois plus lent (GPU RTX 4060 Laptop).
-- **Forces complémentaires** : le pipeline corrige les classes difficiles de la baseline
-  (F1 A5 0,87 contre 0,79 ; A11 0,88 contre 0,81 ; A14 0,97 contre 0,91 ; A15 0,96 contre 0,89),
-  mais fait moins bien sur A1 (0,88 contre 0,94), A12 (0,93 contre 0,99) et A20 (0,96 contre 0,98).
-  Détail par classe : `reports/comparaison_test.csv`.
-- **Les erreurs du pipeline viennent de la classification** : seul, le détecteur 1 classe trouve
-  99,5 % des avions (précision 0,993, AP50 0,994, AP50-95 0,810, `reports/yolo11s_avion_test.csv`).
-  Sur les vignettes du test, le classifieur atteint 97,8 % d'exactitude (F1 macro 0,977) ; ses
-  confusions principales sont A1 ↔ A19 et A11 → A14 (`reports/figures/cls_resnet50_confusion_matrix.png`).
+(F1 val : validation ; autres colonnes : test. Temps mesurés sur GPU RTX 4060 Laptop.)
+
+- **Le pipeline retenu dépasse la baseline** : F1 0,974 contre 0,960, rappel 0,973 contre 0,950,
+  mAP50-95 0,802 contre 0,793, au prix d'une inférence 4 à 5 fois plus lente.
+- **Le classifieur était le goulot d'étranglement** : seul, le détecteur 1 classe trouve 99,5 % des
+  avions (précision 0,993, AP50 0,994, AP50-95 0,810, `reports/yolo11s_avion_test.csv`). Les avions
+  perdus par le premier pipeline étaient mal classés, pas mal détectés. Un essai sur la validation
+  l'a confirmé : changer la règle de score (détection seule, moyenne géométrique) n'apporte rien.
+- **Deux leviers sans nouvelles données** : le TTA (+0,6 point de F1 de validation pour ResNet50,
+  sans réentraînement) et un réseau plus récent, ConvNeXt-Tiny (+1,8 point). Combinés : +2,1 points.
+- **Sur le test, ResNet50 + TTA passe devant** (F1 0,978 contre 0,974) : un écart de 0,4 point sur
+  200 images est du bruit, d'où la règle de choisir sur la validation.
+- **Classes difficiles** (F1 test, retenu contre baseline) : A5 0,94 contre 0,79 ; A11 0,88 contre 0,81 ;
+  A13 1,00 contre 0,96 ; A15 0,96 contre 0,89. La baseline reste meilleure sur A12 (0,99 contre 0,96)
+  et A20 (0,98 contre 0,97). Détail : `reports/comparaison_test.csv`.
+- **Erreur résiduelle principale** : 26 % des vignettes A11 classées A14 par ConvNeXt
+  (`reports/figures/cls_convnext_tiny_confusion_matrix.png`) ; A11 est une classe rare (27 avions au test).
 
 Entraînements :
 
@@ -94,8 +111,10 @@ Entraînements :
   Principale erreur : 29 % des A5 prédits A13, presque tous dans une seule image (539, ombres
   très marquées), voir `reports/figures/yolo11s_20cls_erreur_image539.jpg`.
 - **YOLO11s 1 classe** : mêmes réglages avec `single_cls`, 100 époques, meilleure époque 100.
-- **ResNet50** : pré-entraîné ImageNet, vignettes 224 px, perte pondérée par classe, arrêt
-  anticipé à l'époque 24, meilleure époque 16 (F1 macro de validation 0,955).
+- **Classifieurs** : vignettes 224 px, perte pondérée par classe, mêmes réglages pour les deux.
+  ResNet50 (pré-entraîné ImageNet-1k) : meilleure époque 16, F1 macro de validation 0,955.
+  ConvNeXt-Tiny (pré-entraîné ImageNet-12k puis 1k) : meilleure époque 9, F1 macro de validation
+  0,976 ; sur les vignettes du test, 98,6 % d'exactitude (ResNet50 : 97,8 %).
 
 Ultralytics annonce un mAP50 plus élevé pour la baseline (0,989 contre 0,967 ici), pour deux raisons :
 son évaluation garde plusieurs classes candidates par boîte, ce qui gonfle le mAP d'un modèle
@@ -116,8 +135,8 @@ Sur le détecteur 1 classe, où la première raison ne joue pas, les deux calcul
 - Le tableau liste chaque détection (classe, score, verdict, coordonnées de la boîte).
 
 Les modèles sont chargés une fois au démarrage, avec un premier passage à vide pour que la
-première analyse de la démo soit rapide. Options `--host 0.0.0.0` (accès depuis un autre poste)
-et `--baseline / --detector / --classifier` (autres poids).
+première analyse de la démo soit rapide. Options `--host 0.0.0.0` (accès depuis un autre poste),
+`--no-tta` (plus rapide, utile sur CPU) et `--baseline / --detector / --classifier` (autres poids).
 
 ## Corpus de test annoté
 
@@ -126,7 +145,7 @@ et `--baseline / --detector / --classifier` (autres poids).
 .venv/Scripts/python -m src.annotate_corpus          # sans --images : les 200 images de notre split de test
 ```
 
-Le modèle retenu (détecteur + classifieur, seuil de validation 0,60) annote chaque image :
+Le modèle retenu (détecteur + ConvNeXt-Tiny + TTA, seuil de validation 0,45) annote chaque image :
 
 - `outputs/corpus_test_annote/annotations/*.xml` : Pascal VOC, même format que les annotations
   fournies, avec en plus une balise `<score>` (confiance du modèle) par avion ;
@@ -135,7 +154,7 @@ Le modèle retenu (détecteur + classifieur, seuil de validation 0,60) annote ch
 - `outputs/corpus_test_annote.zip` (option `--zip`) : l'ensemble, à partager.
 
 Contrôle : relus comme des annotations et comparés à la vérité terrain, les XML de notre split de
-test redonnent exactement les scores de la comparaison (précision 0,984, rappel 0,944, F1 0,964).
+test redonnent exactement les scores de la comparaison (précision 0,976, rappel 0,973, F1 0,974).
 Les XML et le CSV de ce split sont versionnés ; les images et le zip, trop lourds, ne le sont pas.
 
 ## Docker
@@ -165,7 +184,9 @@ docker run --rm -v "<dossier du corpus>:/corpus:ro" -v "$(pwd)/outputs:/app/outp
 
 Choix : PyTorch en version CPU (image bien plus légère que la version CUDA), versions exactes
 reprises de `requirements-lock.txt`, et `.dockerignore` en liste blanche pour ne copier que le
-nécessaire. Sur CPU, le pipeline prend de 0,4 à 1,4 s par image selon le nombre d'avions.
+nécessaire. L'interface du conteneur démarre sans TTA : sur CPU, le pipeline prend 1,4 à 2,4 s
+par image sans TTA, contre 8 à 17 s avec (F1 de validation 0,970 contre 0,973). L'annotation
+d'un corpus garde le TTA par défaut ; ajouter `--no-tta` pour aller plus vite.
 
 ## Structure
 

@@ -53,13 +53,21 @@ def load_classifier(path: Path, device: str) -> tuple[torch.nn.Module, list[str]
 
 
 @torch.no_grad()
-def classify_crops(model: torch.nn.Module, crops_bgr: list[np.ndarray], device: str) -> torch.Tensor:
-    """Probabilités (N, nb_classes) pour des vignettes OpenCV (BGR)."""
+def classify_crops(model: torch.nn.Module, crops_bgr: list[np.ndarray], device: str, tta: bool = False) -> torch.Tensor:
+    """Probabilités (N, nb_classes) pour des vignettes OpenCV (BGR).
+
+    tta (test-time augmentation) : moyenne des probabilités sur les 8 orientations de la vignette
+    (4 rotations d'un quart de tour, avec et sans symétrie). Vu de dessus, un avion tourné reste
+    le même avion : la moyenne gomme les erreurs liées à une orientation particulière.
+    """
     if not crops_bgr:
         return torch.empty(0)
     transform = eval_transform()
-    batch = torch.stack([transform(Image.fromarray(cv2.cvtColor(c, cv2.COLOR_BGR2RGB))) for c in crops_bgr])
+    batch = torch.stack([transform(Image.fromarray(cv2.cvtColor(c, cv2.COLOR_BGR2RGB))) for c in crops_bgr]).to(device)
+    views = [torch.rot90(b, k, dims=(2, 3)) for b in (batch, batch.flip(3)) for k in range(4)] if tta else [batch]
+    probs = 0
     with torch.autocast(device_type="cuda", enabled=device.startswith("cuda")):
-        logits = model(batch.to(device))
-    # softmax : transforme les scores bruts en probabilités qui somment à 1
-    return logits.float().softmax(dim=1).cpu()
+        for view in views:
+            # softmax : transforme les scores bruts en probabilités qui somment à 1
+            probs = probs + model(view).float().softmax(dim=1)
+    return (probs / len(views)).cpu()

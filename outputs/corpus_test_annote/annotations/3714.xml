@@ -13,7 +13,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8769</score>
+		<score>0.8591</score>
 		<bndbox>
 			<xmin>252</xmin>
 			<ymin>584</ymin>
@@ -26,7 +26,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8727</score>
+		<score>0.8537</score>
 		<bndbox>
 			<xmin>204</xmin>
 			<ymin>665</ymin>
@@ -39,12 +39,12 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8698</score>
+		<score>0.8515</score>
 		<bndbox>
-			<xmin>162</xmin>
-			<ymin>737</ymin>
-			<xmax>238</xmax>
-			<ymax>800</ymax>
+			<xmin>301</xmin>
+			<ymin>501</ymin>
+			<xmax>378</xmax>
+			<ymax>572</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -52,7 +52,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8619</score>
+		<score>0.8474</score>
 		<bndbox>
 			<xmin>387</xmin>
 			<ymin>352</ymin>
@@ -65,12 +65,12 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8564</score>
+		<score>0.8416</score>
 		<bndbox>
-			<xmin>301</xmin>
-			<ymin>501</ymin>
-			<xmax>378</xmax>
-			<ymax>572</ymax>
+			<xmin>162</xmin>
+			<ymin>737</ymin>
+			<xmax>238</xmax>
+			<ymax>800</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -78,7 +78,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7947</score>
+		<score>0.7692</score>
 		<bndbox>
 			<xmin>551</xmin>
 			<ymin>68</ymin>
@@ -91,12 +91,12 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7799</score>
+		<score>0.7682</score>
 		<bndbox>
-			<xmin>514</xmin>
-			<ymin>132</ymin>
-			<xmax>579</xmax>
-			<ymax>198</ymax>
+			<xmin>591</xmin>
+			<ymin>0</ymin>
+			<xmax>657</xmax>
+			<ymax>66</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -104,12 +104,12 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7608</score>
+		<score>0.7654</score>
 		<bndbox>
-			<xmin>591</xmin>
-			<ymin>0</ymin>
-			<xmax>657</xmax>
-			<ymax>66</ymax>
+			<xmin>514</xmin>
+			<ymin>132</ymin>
+			<xmax>579</xmax>
+			<ymax>198</ymax>
 		</bndbox>
 	</object>
 </annotation>

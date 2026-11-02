@@ -13,7 +13,20 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8582</score>
+		<score>0.8188</score>
+		<bndbox>
+			<xmin>196</xmin>
+			<ymin>5</ymin>
+			<xmax>332</xmax>
+			<ymax>105</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A3</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.8174</score>
 		<bndbox>
 			<xmin>198</xmin>
 			<ymin>440</ymin>
@@ -26,20 +39,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8315</score>
-		<bndbox>
-			<xmin>202</xmin>
-			<ymin>657</ymin>
-			<xmax>339</xmax>
-			<ymax>757</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A3</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8171</score>
+		<score>0.8130</score>
 		<bndbox>
 			<xmin>368</xmin>
 			<ymin>657</ymin>
@@ -52,7 +52,20 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8121</score>
+		<score>0.8071</score>
+		<bndbox>
+			<xmin>202</xmin>
+			<ymin>657</ymin>
+			<xmax>339</xmax>
+			<ymax>757</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A3</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.8014</score>
 		<bndbox>
 			<xmin>545</xmin>
 			<ymin>449</ymin>
@@ -65,7 +78,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8039</score>
+		<score>0.7941</score>
 		<bndbox>
 			<xmin>544</xmin>
 			<ymin>230</ymin>
@@ -78,25 +91,12 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7812</score>
+		<score>0.7888</score>
 		<bndbox>
 			<xmin>366</xmin>
 			<ymin>435</ymin>
 			<xmax>511</xmax>
 			<ymax>536</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A3</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.7551</score>
-		<bndbox>
-			<xmin>196</xmin>
-			<ymin>5</ymin>
-			<xmax>332</xmax>
-			<ymax>105</ymax>
 		</bndbox>
 	</object>
 </annotation>

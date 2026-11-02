@@ -15,7 +15,7 @@ from src.classifier import classify_crops, load_classifier
 from src.config import CLASSES
 from src.crops import square_crop
 
-BASELINE, TWO_STAGE = "YOLO 20 classes", "Détecteur + classifieur"   # noms dans les rapports et l'interface
+BASELINE = "YOLO 20 classes"   # nom dans les rapports et l'interface
 
 
 @dataclass
@@ -36,6 +36,8 @@ def default_device() -> str:
 
 
 class YoloRecognizer:
+    label = BASELINE
+
     def __init__(self, weights: Path, conf: float = 0.25, imgsz: int = 800, device: str | None = None):
         self.model, self.conf, self.imgsz = YOLO(weights), conf, imgsz
         self.device = device or default_device()
@@ -49,11 +51,13 @@ class YoloRecognizer:
 
 class TwoStageRecognizer:
     def __init__(self, detector_weights: Path, classifier_weights: Path, conf: float = 0.25,
-                 imgsz: int = 800, margin: float = 0.1, device: str | None = None):
+                 imgsz: int = 800, margin: float = 0.1, tta: bool = False, device: str | None = None):
         self.device = device or default_device()
         self.detector = YOLO(detector_weights)
         self.classifier, self.classes = load_classifier(classifier_weights, self.device)
-        self.conf, self.imgsz, self.margin = conf, imgsz, margin
+        self.conf, self.imgsz, self.margin, self.tta = conf, imgsz, margin, tta
+        # Nom de la configuration, ex. « Détecteur + resnet50 + TTA » (dossier runs/cls_<nom>)
+        self.label = f"Détecteur + {Path(classifier_weights).parent.name.removeprefix('cls_')}" + (" + TTA" if tta else "")
 
     def predict(self, image_bgr: np.ndarray) -> list[Detection]:
         # Étape 1 : où sont les avions ? (seuil bas, le filtrage se fait sur le score final)
@@ -61,7 +65,8 @@ class TwoStageRecognizer:
                                        max_det=300, verbose=False)[0]
         boxes, det_scores = result.boxes.xyxy.tolist(), result.boxes.conf.tolist()
         # Étape 2 : quel modèle d'avion ? (même découpe de vignette qu'à l'entraînement)
-        probs = classify_crops(self.classifier, [square_crop(image_bgr, b, self.margin) for b in boxes], self.device)
+        probs = classify_crops(self.classifier, [square_crop(image_bgr, b, self.margin) for b in boxes], self.device,
+                               tta=self.tta)
         detections = []
         for box, det_score, p in zip(boxes, det_scores, probs):
             cls_prob, cls_index = p.max(dim=0)

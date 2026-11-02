@@ -13,46 +13,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8101</score>
-		<bndbox>
-			<xmin>627</xmin>
-			<ymin>464</ymin>
-			<xmax>758</xmax>
-			<ymax>591</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A17</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8071</score>
-		<bndbox>
-			<xmin>145</xmin>
-			<ymin>397</ymin>
-			<xmax>274</xmax>
-			<ymax>524</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A17</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8057</score>
-		<bndbox>
-			<xmin>497</xmin>
-			<ymin>449</ymin>
-			<xmax>626</xmax>
-			<ymax>573</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A17</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8002</score>
+		<score>0.7868</score>
 		<bndbox>
 			<xmin>360</xmin>
 			<ymin>429</ymin>
@@ -65,12 +26,51 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7891</score>
+		<score>0.7845</score>
+		<bndbox>
+			<xmin>627</xmin>
+			<ymin>464</ymin>
+			<xmax>758</xmax>
+			<ymax>591</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A17</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7814</score>
+		<bndbox>
+			<xmin>145</xmin>
+			<ymin>397</ymin>
+			<xmax>274</xmax>
+			<ymax>524</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A17</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7795</score>
 		<bndbox>
 			<xmin>1</xmin>
 			<ymin>378</ymin>
 			<xmax>131</xmax>
 			<ymax>504</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A17</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7792</score>
+		<bndbox>
+			<xmin>497</xmin>
+			<ymin>449</ymin>
+			<xmax>626</xmax>
+			<ymax>573</ymax>
 		</bndbox>
 	</object>
 </annotation>

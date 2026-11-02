@@ -20,24 +20,87 @@ YOLO 20 classes,A18,28,1.0000,0.9643,0.9818,0.9604,0.8005
 YOLO 20 classes,A19,79,0.9589,0.8861,0.9211,0.9861,0.7851
 YOLO 20 classes,A20,59,0.9831,0.9831,0.9831,0.9802,0.8414
 YOLO 20 classes,global,1287,0.9706,0.9503,0.9603,0.9666,0.7926
-Détecteur + classifieur,A1,97,0.9524,0.8247,0.8840,0.8484,0.7098
-Détecteur + classifieur,A2,140,1.0000,0.9857,0.9928,1.0000,0.7919
-Détecteur + classifieur,A3,61,1.0000,1.0000,1.0000,1.0000,0.8630
-Détecteur + classifieur,A4,29,1.0000,1.0000,1.0000,1.0000,0.8345
-Détecteur + classifieur,A5,70,1.0000,0.7714,0.8710,0.9684,0.6693
-Détecteur + classifieur,A6,24,1.0000,1.0000,1.0000,1.0000,0.8604
-Détecteur + classifieur,A7,40,1.0000,1.0000,1.0000,1.0000,0.7969
-Détecteur + classifieur,A8,50,1.0000,1.0000,1.0000,1.0000,0.8765
-Détecteur + classifieur,A9,111,0.9737,1.0000,0.9867,0.9975,0.7196
-Détecteur + classifieur,A10,57,1.0000,1.0000,1.0000,1.0000,0.8647
-Détecteur + classifieur,A11,27,0.9565,0.8148,0.8800,0.8453,0.7496
-Détecteur + classifieur,A12,36,0.9429,0.9167,0.9296,0.9671,0.7620
-Détecteur + classifieur,A13,57,0.9811,0.9123,0.9455,0.9646,0.7780
-Détecteur + classifieur,A14,98,0.9694,0.9694,0.9694,0.9614,0.8328
-Détecteur + classifieur,A15,25,1.0000,0.9200,0.9583,0.9208,0.7218
-Détecteur + classifieur,A16,127,1.0000,0.9449,0.9717,1.0000,0.7887
-Détecteur + classifieur,A17,72,1.0000,1.0000,1.0000,1.0000,0.8592
-Détecteur + classifieur,A18,28,1.0000,0.9643,0.9818,1.0000,0.8299
-Détecteur + classifieur,A19,79,0.9589,0.8861,0.9211,0.9171,0.7252
-Détecteur + classifieur,A20,59,0.9500,0.9661,0.9580,0.9843,0.8351
-Détecteur + classifieur,global,1287,0.9838,0.9441,0.9635,0.9687,0.7934
+Détecteur + resnet50,A1,97,0.9524,0.8247,0.8840,0.8484,0.7098
+Détecteur + resnet50,A2,140,1.0000,0.9857,0.9928,1.0000,0.7919
+Détecteur + resnet50,A3,61,1.0000,1.0000,1.0000,1.0000,0.8630
+Détecteur + resnet50,A4,29,1.0000,1.0000,1.0000,1.0000,0.8345
+Détecteur + resnet50,A5,70,1.0000,0.7714,0.8710,0.9684,0.6693
+Détecteur + resnet50,A6,24,1.0000,1.0000,1.0000,1.0000,0.8604
+Détecteur + resnet50,A7,40,1.0000,1.0000,1.0000,1.0000,0.7969
+Détecteur + resnet50,A8,50,1.0000,1.0000,1.0000,1.0000,0.8765
+Détecteur + resnet50,A9,111,0.9737,1.0000,0.9867,0.9975,0.7196
+Détecteur + resnet50,A10,57,1.0000,1.0000,1.0000,1.0000,0.8647
+Détecteur + resnet50,A11,27,0.9565,0.8148,0.8800,0.8453,0.7496
+Détecteur + resnet50,A12,36,0.9429,0.9167,0.9296,0.9671,0.7620
+Détecteur + resnet50,A13,57,0.9811,0.9123,0.9455,0.9646,0.7780
+Détecteur + resnet50,A14,98,0.9694,0.9694,0.9694,0.9614,0.8328
+Détecteur + resnet50,A15,25,1.0000,0.9200,0.9583,0.9208,0.7218
+Détecteur + resnet50,A16,127,1.0000,0.9449,0.9717,1.0000,0.7887
+Détecteur + resnet50,A17,72,1.0000,1.0000,1.0000,1.0000,0.8592
+Détecteur + resnet50,A18,28,1.0000,0.9643,0.9818,1.0000,0.8299
+Détecteur + resnet50,A19,79,0.9589,0.8861,0.9211,0.9171,0.7252
+Détecteur + resnet50,A20,59,0.9500,0.9661,0.9580,0.9843,0.8351
+Détecteur + resnet50,global,1287,0.9838,0.9441,0.9635,0.9687,0.7934
+Détecteur + resnet50 + TTA,A1,97,0.9659,0.8763,0.9189,0.9169,0.7688
+Détecteur + resnet50 + TTA,A2,140,1.0000,1.0000,1.0000,1.0000,0.7958
+Détecteur + resnet50 + TTA,A3,61,1.0000,1.0000,1.0000,1.0000,0.8606
+Détecteur + resnet50 + TTA,A4,29,1.0000,1.0000,1.0000,1.0000,0.8402
+Détecteur + resnet50 + TTA,A5,70,1.0000,0.9286,0.9630,0.9990,0.6899
+Détecteur + resnet50 + TTA,A6,24,1.0000,0.9583,0.9787,0.9505,0.8283
+Détecteur + resnet50 + TTA,A7,40,1.0000,1.0000,1.0000,1.0000,0.7969
+Détecteur + resnet50 + TTA,A8,50,1.0000,1.0000,1.0000,1.0000,0.8797
+Détecteur + resnet50 + TTA,A9,111,0.9737,1.0000,0.9867,0.9999,0.7234
+Détecteur + resnet50 + TTA,A10,57,1.0000,1.0000,1.0000,1.0000,0.8659
+Détecteur + resnet50 + TTA,A11,27,0.9583,0.8519,0.9020,0.8741,0.7800
+Détecteur + resnet50 + TTA,A12,36,0.9444,0.9444,0.9444,0.9664,0.7624
+Détecteur + resnet50 + TTA,A13,57,1.0000,0.9298,0.9636,0.9792,0.7886
+Détecteur + resnet50 + TTA,A14,98,0.9505,0.9796,0.9648,0.9703,0.8448
+Détecteur + resnet50 + TTA,A15,25,1.0000,0.9200,0.9583,0.9208,0.7303
+Détecteur + resnet50 + TTA,A16,127,1.0000,0.9921,0.9960,1.0000,0.7881
+Détecteur + resnet50 + TTA,A17,72,1.0000,1.0000,1.0000,1.0000,0.8592
+Détecteur + resnet50 + TTA,A18,28,1.0000,0.9643,0.9818,1.0000,0.8261
+Détecteur + resnet50 + TTA,A19,79,0.9740,0.9494,0.9615,0.9348,0.7421
+Détecteur + resnet50 + TTA,A20,59,0.9516,1.0000,0.9752,0.9918,0.8489
+Détecteur + resnet50 + TTA,global,1287,0.9850,0.9705,0.9777,0.9752,0.8010
+Détecteur + convnext_tiny,A1,97,0.9785,0.9381,0.9579,0.9589,0.7884
+Détecteur + convnext_tiny,A2,140,0.9929,0.9929,0.9929,0.9900,0.7936
+Détecteur + convnext_tiny,A3,61,1.0000,1.0000,1.0000,1.0000,0.8599
+Détecteur + convnext_tiny,A4,29,1.0000,1.0000,1.0000,1.0000,0.8393
+Détecteur + convnext_tiny,A5,70,0.9836,0.8571,0.9160,0.9100,0.6362
+Détecteur + convnext_tiny,A6,24,1.0000,0.9583,0.9787,0.9505,0.8307
+Détecteur + convnext_tiny,A7,40,1.0000,1.0000,1.0000,1.0000,0.8006
+Détecteur + convnext_tiny,A8,50,1.0000,0.9800,0.9899,1.0000,0.8761
+Détecteur + convnext_tiny,A9,111,0.9823,1.0000,0.9911,1.0000,0.7304
+Détecteur + convnext_tiny,A10,57,1.0000,1.0000,1.0000,1.0000,0.8666
+Détecteur + convnext_tiny,A11,27,1.0000,0.6667,0.8000,0.7426,0.6688
+Détecteur + convnext_tiny,A12,36,0.9189,0.9444,0.9315,0.9671,0.7607
+Détecteur + convnext_tiny,A13,57,1.0000,0.9649,0.9821,1.0000,0.8097
+Détecteur + convnext_tiny,A14,98,0.8661,0.9898,0.9238,0.9613,0.8240
+Détecteur + convnext_tiny,A15,25,0.9200,0.9200,0.9200,0.9191,0.7243
+Détecteur + convnext_tiny,A16,127,0.9922,1.0000,0.9961,0.9997,0.7956
+Détecteur + convnext_tiny,A17,72,1.0000,1.0000,1.0000,1.0000,0.8573
+Détecteur + convnext_tiny,A18,28,1.0000,1.0000,1.0000,1.0000,0.8244
+Détecteur + convnext_tiny,A19,79,0.9867,0.9367,0.9610,0.9516,0.7547
+Détecteur + convnext_tiny,A20,59,0.9508,0.9831,0.9667,0.9891,0.8462
+Détecteur + convnext_tiny,global,1287,0.9757,0.9681,0.9719,0.9670,0.7944
+Détecteur + convnext_tiny + TTA,A1,97,1.0000,0.9175,0.9570,0.9596,0.7918
+Détecteur + convnext_tiny + TTA,A2,140,0.9929,0.9929,0.9929,0.9999,0.7981
+Détecteur + convnext_tiny + TTA,A3,61,1.0000,1.0000,1.0000,1.0000,0.8587
+Détecteur + convnext_tiny + TTA,A4,29,1.0000,1.0000,1.0000,1.0000,0.8404
+Détecteur + convnext_tiny + TTA,A5,70,0.9844,0.9000,0.9403,0.9791,0.6777
+Détecteur + convnext_tiny + TTA,A6,24,1.0000,1.0000,1.0000,1.0000,0.8676
+Détecteur + convnext_tiny + TTA,A7,40,1.0000,1.0000,1.0000,1.0000,0.8055
+Détecteur + convnext_tiny + TTA,A8,50,1.0000,1.0000,1.0000,1.0000,0.8705
+Détecteur + convnext_tiny + TTA,A9,111,0.9737,1.0000,0.9867,1.0000,0.7278
+Détecteur + convnext_tiny + TTA,A10,57,1.0000,1.0000,1.0000,1.0000,0.8656
+Détecteur + convnext_tiny + TTA,A11,27,1.0000,0.7778,0.8750,0.7723,0.6942
+Détecteur + convnext_tiny + TTA,A12,36,0.9459,0.9722,0.9589,0.9671,0.7643
+Détecteur + convnext_tiny + TTA,A13,57,1.0000,1.0000,1.0000,1.0000,0.8077
+Détecteur + convnext_tiny + TTA,A14,98,0.8362,0.9898,0.9065,0.9758,0.8390
+Détecteur + convnext_tiny + TTA,A15,25,1.0000,0.9200,0.9583,0.9208,0.7273
+Détecteur + convnext_tiny + TTA,A16,127,0.9922,1.0000,0.9961,0.9998,0.7952
+Détecteur + convnext_tiny + TTA,A17,72,1.0000,1.0000,1.0000,1.0000,0.8563
+Détecteur + convnext_tiny + TTA,A18,28,1.0000,1.0000,1.0000,1.0000,0.8272
+Détecteur + convnext_tiny + TTA,A19,79,0.9861,0.8987,0.9404,0.9599,0.7658
+Détecteur + convnext_tiny + TTA,A20,59,0.9508,0.9831,0.9667,0.9881,0.8496
+Détecteur + convnext_tiny + TTA,global,1287,0.9758,0.9728,0.9743,0.9761,0.8015

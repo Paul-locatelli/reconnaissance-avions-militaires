@@ -9,7 +9,7 @@ Sans --images, le script annote les images de notre split de test (data/splits/t
 
 Usage :
   python -m src.annotate_corpus --images <dossier du corpus de test> [--zip]
-  python -m src.annotate_corpus [--approach yolo] [--conf 0.6]
+  python -m src.annotate_corpus [--approach yolo] [--conf 0.6] [--no-tta]
 Sorties : <out>/annotations/*.xml, <out>/images/*.jpg, <out>/detections.csv (+ <out>.zip)
 """
 import argparse
@@ -22,10 +22,11 @@ import pandas as pd
 from tqdm import tqdm
 
 from src.compare_models import validation_thresholds
-from src.config import BASELINE_WEIGHTS, CLASSES, CLASSIFIER_WEIGHTS, DETECTOR_WEIGHTS, RAW_DIR, ROOT, SPLITS_DIR
+from src.config import (BASELINE_WEIGHTS, CLASSES, CLASSIFIER_WEIGHTS, DETECTOR_WEIGHTS, RAW_DIR, ROOT, SPLITS_DIR,
+                        USE_TTA)
 from src.drawing import draw_detections
 from src.images import read_image, write_image
-from src.pipeline import BASELINE, TWO_STAGE, Detection, TwoStageRecognizer, YoloRecognizer
+from src.pipeline import Detection, TwoStageRecognizer, YoloRecognizer
 from src.voc import read_split
 
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff"}
@@ -68,16 +69,17 @@ def main() -> None:
     parser.add_argument("--approach", choices=("pipeline", "yolo"), default="pipeline",
                         help="pipeline = détecteur + classifieur (modèle retenu), yolo = baseline 20 classes")
     parser.add_argument("--conf", type=float, help="seuil de confiance (défaut : celui choisi sur la validation)")
+    parser.add_argument("--tta", action=argparse.BooleanOptionalAction, default=USE_TTA,
+                        help="classification sur les 8 orientations (--no-tta : plus rapide sur CPU)")
     parser.add_argument("--no-images", action="store_true", help="ne pas écrire les images annotées")
     parser.add_argument("--zip", action="store_true", help="créer aussi <out>.zip, à partager")
     args = parser.parse_args()
 
-    name = TWO_STAGE if args.approach == "pipeline" else BASELINE
-    conf = args.conf or validation_thresholds().get(name, 0.5)
-    recognizer = (TwoStageRecognizer(DETECTOR_WEIGHTS, CLASSIFIER_WEIGHTS, conf=conf) if args.approach == "pipeline"
-                  else YoloRecognizer(BASELINE_WEIGHTS, conf=conf))
+    recognizer = (TwoStageRecognizer(DETECTOR_WEIGHTS, CLASSIFIER_WEIGHTS, tta=args.tta) if args.approach == "pipeline"
+                  else YoloRecognizer(BASELINE_WEIGHTS))
+    recognizer.conf = args.conf or validation_thresholds().get(recognizer.label, 0.5)
     images = list_images(args.images)
-    print(f"{name} | seuil {conf:.2f} | {len(images)} images -> {args.out}")
+    print(f"{recognizer.label} | seuil {recognizer.conf:.2f} | {len(images)} images -> {args.out}")
 
     if args.out.exists():
         shutil.rmtree(args.out)   # pas de mélange avec un ancien passage

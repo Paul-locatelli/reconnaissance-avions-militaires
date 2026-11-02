@@ -13,7 +13,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8726</score>
+		<score>0.8229</score>
 		<bndbox>
 			<xmin>578</xmin>
 			<ymin>133</ymin>
@@ -26,7 +26,20 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8627</score>
+		<score>0.8222</score>
+		<bndbox>
+			<xmin>364</xmin>
+			<ymin>119</ymin>
+			<xmax>472</xmax>
+			<ymax>239</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A4</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.8187</score>
 		<bndbox>
 			<xmin>255</xmin>
 			<ymin>112</ymin>
@@ -39,7 +52,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8616</score>
+		<score>0.8113</score>
 		<bndbox>
 			<xmin>40</xmin>
 			<ymin>99</ymin>
@@ -48,24 +61,11 @@
 		</bndbox>
 	</object>
 	<object>
-		<name>A4</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8590</score>
-		<bndbox>
-			<xmin>364</xmin>
-			<ymin>119</ymin>
-			<xmax>472</xmax>
-			<ymax>239</ymax>
-		</bndbox>
-	</object>
-	<object>
 		<name>A3</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8024</score>
+		<score>0.8006</score>
 		<bndbox>
 			<xmin>698</xmin>
 			<ymin>156</ymin>
@@ -78,7 +78,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8004</score>
+		<score>0.7987</score>
 		<bndbox>
 			<xmin>483</xmin>
 			<ymin>141</ymin>

@@ -13,7 +13,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8244</score>
+		<score>0.7571</score>
 		<bndbox>
 			<xmin>133</xmin>
 			<ymin>376</ymin>
@@ -26,7 +26,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8020</score>
+		<score>0.7370</score>
 		<bndbox>
 			<xmin>62</xmin>
 			<ymin>273</ymin>
@@ -39,7 +39,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7547</score>
+		<score>0.7082</score>
 		<bndbox>
 			<xmin>611</xmin>
 			<ymin>348</ymin>

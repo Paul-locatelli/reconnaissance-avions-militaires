@@ -17,11 +17,11 @@ import numpy as np
 import pandas as pd
 
 from src.compare_models import validation_thresholds
-from src.config import BASELINE_WEIGHTS, CLASSIFIER_WEIGHTS, DETECTOR_WEIGHTS, RAW_DIR, SPLITS_DIR
+from src.config import BASELINE_WEIGHTS, CLASSIFIER_WEIGHTS, DETECTOR_WEIGHTS, RAW_DIR, SPLITS_DIR, USE_TTA
 from src.detection_metrics import CORRECT, FALSE_POSITIVE, WRONG_CLASS, compare_to_ground_truth
 from src.drawing import LEGEND, LEGEND_NO_TRUTH, draw_detections
 from src.images import read_image
-from src.pipeline import BASELINE, TWO_STAGE, TwoStageRecognizer, YoloRecognizer
+from src.pipeline import TwoStageRecognizer, YoloRecognizer
 from src.voc import load_annotations, read_split
 
 EXAMPLES = ["3607", "1749", "3821", "1680", "2477", "539"]  # images du test, jamais vues à l'entraînement
@@ -33,13 +33,14 @@ def count(n: int, singular: str, plural: str) -> str:
 
 
 def load_recognizers(args) -> dict:
-    """Les approches dont les poids sont présents ; seuil bas, le filtrage se fait dans l'interface."""
-    recognizers = {}
+    """Les approches dont les poids sont présents, par nom ; seuil bas, le filtrage se fait dans l'interface."""
+    found = []
     detector, classifier = Path(args.detector), Path(args.classifier)
     if detector.exists() and classifier.exists():
-        recognizers[TWO_STAGE] = TwoStageRecognizer(detector, classifier, conf=0.05)
+        found.append(TwoStageRecognizer(detector, classifier, conf=0.05, tta=args.tta))
     if Path(args.baseline).exists():
-        recognizers[BASELINE] = YoloRecognizer(Path(args.baseline), conf=0.05)
+        found.append(YoloRecognizer(Path(args.baseline), conf=0.05))
+    recognizers = {r.label: r for r in found}
     if not recognizers:
         raise SystemExit("Aucun poids trouvé : entraîner les modèles ou passer --baseline / --detector / --classifier")
     for recognizer in recognizers.values():   # premier passage (initialisation CUDA) avant la démo
@@ -137,6 +138,8 @@ def main() -> None:
     parser.add_argument("--baseline", default=str(BASELINE_WEIGHTS))
     parser.add_argument("--detector", default=str(DETECTOR_WEIGHTS))
     parser.add_argument("--classifier", default=str(CLASSIFIER_WEIGHTS))
+    parser.add_argument("--tta", action=argparse.BooleanOptionalAction, default=USE_TTA,
+                        help="classification sur les 8 orientations (--no-tta : plus rapide sur CPU)")
     parser.add_argument("--host", default="127.0.0.1", help="0.0.0.0 pour un accès depuis un autre poste ou Docker")
     parser.add_argument("--port", type=int, default=7860)
     args = parser.parse_args()

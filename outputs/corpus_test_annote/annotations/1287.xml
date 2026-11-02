@@ -8,4 +8,17 @@
 		<depth>3</depth>
 	</size>
 	<segmented>0</segmented>
+	<object>
+		<name>A13</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7620</score>
+		<bndbox>
+			<xmin>326</xmin>
+			<ymin>10</ymin>
+			<xmax>469</xmax>
+			<ymax>154</ymax>
+		</bndbox>
+	</object>
 </annotation>

@@ -13,33 +13,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7892</score>
-		<bndbox>
-			<xmin>302</xmin>
-			<ymin>245</ymin>
-			<xmax>387</xmax>
-			<ymax>326</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A17</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.7838</score>
-		<bndbox>
-			<xmin>419</xmin>
-			<ymin>413</ymin>
-			<xmax>507</xmax>
-			<ymax>497</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A17</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.7825</score>
+		<score>0.7870</score>
 		<bndbox>
 			<xmin>367</xmin>
 			<ymin>332</ymin>
@@ -52,7 +26,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7808</score>
+		<score>0.7809</score>
 		<bndbox>
 			<xmin>130</xmin>
 			<ymin>0</ymin>
@@ -65,7 +39,20 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7798</score>
+		<score>0.7766</score>
+		<bndbox>
+			<xmin>419</xmin>
+			<ymin>413</ymin>
+			<xmax>507</xmax>
+			<ymax>497</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A17</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7736</score>
 		<bndbox>
 			<xmin>183</xmin>
 			<ymin>75</ymin>
@@ -78,7 +65,20 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7701</score>
+		<score>0.7690</score>
+		<bndbox>
+			<xmin>302</xmin>
+			<ymin>245</ymin>
+			<xmax>387</xmax>
+			<ymax>326</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A17</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.7684</score>
 		<bndbox>
 			<xmin>244</xmin>
 			<ymin>162</ymin>
@@ -91,7 +91,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7597</score>
+		<score>0.7634</score>
 		<bndbox>
 			<xmin>483</xmin>
 			<ymin>504</ymin>

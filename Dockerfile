@@ -31,7 +31,8 @@ COPY data/splits/ data/splits/
 COPY reports/comparaison_resume.csv reports/
 COPY runs/yolo11s_20cls/weights/best.pt runs/yolo11s_20cls/weights/
 COPY runs/yolo11s_avion/weights/best.pt runs/yolo11s_avion/weights/
-COPY runs/cls_resnet50/best.pt runs/cls_resnet50/
+COPY runs/cls_convnext_tiny/best.pt runs/cls_convnext_tiny/
 
 EXPOSE 7860
-CMD ["python", "-m", "src.app", "--host", "0.0.0.0"]
+# Sans TTA : sur CPU, les 8 orientations par avion font passer une image de 2 s à plus de 10 s
+CMD ["python", "-m", "src.app", "--host", "0.0.0.0", "--no-tta"]

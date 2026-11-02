@@ -19,7 +19,10 @@ FIGURES_DIR = REPORTS_DIR / "figures"
 RUNS_DIR = ROOT / "runs"
 BASELINE_WEIGHTS = RUNS_DIR / "yolo11s_20cls" / "weights" / "best.pt"
 DETECTOR_WEIGHTS = RUNS_DIR / "yolo11s_avion" / "weights" / "best.pt"
-CLASSIFIER_WEIGHTS = RUNS_DIR / "cls_resnet50" / "best.pt"
+# Pipeline retenu (meilleur F1 de validation, voir compare_models) : ConvNeXt-Tiny, classification
+# moyennée sur les 8 orientations de la vignette (TTA)
+CLASSIFIER_WEIGHTS = RUNS_DIR / "cls_convnext_tiny" / "best.pt"
+USE_TTA = True
 
 CLASSES = [f"A{i}" for i in range(1, 21)]
 CLASS_TO_ID = {name: i for i, name in enumerate(CLASSES)}

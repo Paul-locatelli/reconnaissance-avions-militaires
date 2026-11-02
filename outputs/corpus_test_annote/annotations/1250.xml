@@ -13,7 +13,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8143</score>
+		<score>0.7545</score>
 		<bndbox>
 			<xmin>175</xmin>
 			<ymin>332</ymin>

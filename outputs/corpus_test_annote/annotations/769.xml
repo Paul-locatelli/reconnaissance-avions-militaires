@@ -13,33 +13,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8483</score>
-		<bndbox>
-			<xmin>646</xmin>
-			<ymin>282</ymin>
-			<xmax>742</xmax>
-			<ymax>354</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A15</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8384</score>
-		<bndbox>
-			<xmin>49</xmin>
-			<ymin>572</ymin>
-			<xmax>144</xmax>
-			<ymax>643</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A15</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8337</score>
+		<score>0.8374</score>
 		<bndbox>
 			<xmin>772</xmin>
 			<ymin>407</ymin>
@@ -52,7 +26,20 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8246</score>
+		<score>0.8373</score>
+		<bndbox>
+			<xmin>646</xmin>
+			<ymin>282</ymin>
+			<xmax>742</xmax>
+			<ymax>354</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A15</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.8324</score>
 		<bndbox>
 			<xmin>466</xmin>
 			<ymin>410</ymin>
@@ -65,33 +52,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8236</score>
-		<bndbox>
-			<xmin>537</xmin>
-			<ymin>508</ymin>
-			<xmax>607</xmax>
-			<ymax>603</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A15</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8222</score>
-		<bndbox>
-			<xmin>327</xmin>
-			<ymin>227</ymin>
-			<xmax>397</xmax>
-			<ymax>319</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>A15</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<score>0.8208</score>
+		<score>0.8275</score>
 		<bndbox>
 			<xmin>582</xmin>
 			<ymin>187</ymin>
@@ -104,7 +65,46 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.8179</score>
+		<score>0.8256</score>
+		<bndbox>
+			<xmin>537</xmin>
+			<ymin>508</ymin>
+			<xmax>607</xmax>
+			<ymax>603</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A15</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.8254</score>
+		<bndbox>
+			<xmin>327</xmin>
+			<ymin>227</ymin>
+			<xmax>397</xmax>
+			<ymax>319</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A15</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.8232</score>
+		<bndbox>
+			<xmin>49</xmin>
+			<ymin>572</ymin>
+			<xmax>144</xmax>
+			<ymax>643</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>A15</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<score>0.8172</score>
 		<bndbox>
 			<xmin>510</xmin>
 			<ymin>95</ymin>
@@ -117,7 +117,7 @@
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
-		<score>0.7756</score>
+		<score>0.7904</score>
 		<bndbox>
 			<xmin>395</xmin>
 			<ymin>318</ymin>
