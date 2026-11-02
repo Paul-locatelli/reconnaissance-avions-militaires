@@ -1,0 +1,11 @@
+# Liste blanche : seuls les fichiers utiles à l'application entrent dans l'image
+*
+!src/
+!data/splits/
+!reports/comparaison_resume.csv
+!requirements.txt
+!requirements-lock.txt
+!runs/yolo11s_20cls/weights/best.pt
+!runs/yolo11s_avion/weights/best.pt
+!runs/cls_resnet50/best.pt
+**/__pycache__

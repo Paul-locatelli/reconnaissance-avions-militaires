@@ -138,6 +138,35 @@ Contrôle : relus comme des annotations et comparés à la vérité terrain, les
 test redonnent exactement les scores de la comparaison (précision 0,984, rappel 0,944, F1 0,964).
 Les XML et le CSV de ce split sont versionnés ; les images et le zip, trop lourds, ne le sont pas.
 
+## Docker
+
+L'image contient le code et les poids des 3 modèles, et fait l'inférence sur CPU : elle tourne
+sur n'importe quelle machine, sans GPU. Les poids doivent être présents dans `runs/` avant la
+construction (ils ne sont pas versionnés).
+
+```bash
+docker build -t avions-militaires .
+docker run --rm -p 7860:7860 avions-militaires          # puis ouvrir http://localhost:7860
+```
+
+Avec le dataset monté, l'interface propose les exemples et la comparaison à la vérité terrain
+(sous PowerShell, remplacer `$(pwd)` par `${PWD}`) :
+
+```bash
+docker run --rm -p 7860:7860 -v "$(pwd)/student-dataset 2:/app/student-dataset 2:ro" avions-militaires
+```
+
+Annoter un corpus avec le conteneur :
+
+```bash
+docker run --rm -v "<dossier du corpus>:/corpus:ro" -v "$(pwd)/outputs:/app/outputs" avions-militaires \
+    python -m src.annotate_corpus --images /corpus --zip
+```
+
+Choix : PyTorch en version CPU (image bien plus légère que la version CUDA), versions exactes
+reprises de `requirements-lock.txt`, et `.dockerignore` en liste blanche pour ne copier que le
+nécessaire. Sur CPU, le pipeline prend de 0,4 à 1,4 s par image selon le nombre d'avions.
+
 ## Structure
 
 ```
