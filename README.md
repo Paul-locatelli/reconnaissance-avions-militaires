@@ -203,6 +203,11 @@ nécessaire. L'interface du conteneur démarre sans TTA : sur CPU, le pipeline p
 par image sans TTA, contre 8 à 17 s avec (F1 de validation 0,970 contre 0,973). L'annotation
 d'un corpus garde le TTA par défaut ; ajouter `--no-tta` pour aller plus vite.
 
+Vérifié avec Docker Desktop 4.99 (moteur 29.9, Windows 11 + WSL 2) : image de 3,3 Go, interface
+prête en 35 s environ, 800 Mo de mémoire au repos, 2,4 s pour l'image 539 (17 avions) sans TTA.
+Sur 3 images du test, l'annotation dans le conteneur (CPU) redonne les mêmes 85 avions que sur
+GPU : mêmes classes, mêmes boîtes, mêmes scores.
+
 ## Structure
 
 ```
